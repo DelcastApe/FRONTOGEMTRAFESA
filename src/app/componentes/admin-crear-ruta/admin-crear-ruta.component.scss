@@ -1,0 +1,211 @@
+/* Estilos generales */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Volver al Inicio - Botón fuera del contenedor principal */
+.volver-container {
+  position: absolute;
+  top: 140px;
+  left: 20px; /* Pegado al borde izquierdo de la pantalla */
+}
+
+.volver-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.volver-btn:hover {
+  background-color: #218838;
+}
+
+/* Título principal - Centrando en el contenedor */
+.main-title {
+  text-align: center;
+  color: #fff;
+  background-color: #5d0085; /* Morado */
+  padding: 20px;
+  margin: 40px 0; /* Ajustamos los márgenes */
+  border-radius: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  width: 100%; /* Tomará el 100% del contenedor */
+  box-sizing: border-box;
+}
+
+/* Secciones internas */
+.administrar-container, .form-container {
+  margin-bottom: 30px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+}
+
+/* Títulos de las secciones */
+.administrar-container h3, .form-container h3, .rutas-lista h3 {
+  background-color: #5d0085; /* Morado */
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.filter-fields, .form-fields {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.filter-field, .form-field {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+
+label {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+select, input[type="text"], input[type="checkbox"] {
+  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  margin-top: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+
+.rutas-lista {
+  list-style-type: none;
+  padding: 0;
+}
+
+.rutas-lista li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.rutas-lista button {
+  margin-left: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.eliminar-btn, .editar-btn {
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.eliminar-btn {
+  background-color: #e74c3c;
+}
+
+.editar-btn {
+  background-color: #f39c12;
+}
+
+.eliminar-btn:hover {
+  background-color: #c0392b;
+}
+
+.editar-btn:hover {
+  background-color: #e67e22;
+}
+
+.crear-ruta-btn {
+  width: auto;
+  margin: 20px auto;
+  padding: 8px 15px;
+  background-color: #28a745;
+  font-size: 1rem;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox-label {
+  font-size: 1rem;
+}
+
+.form-field-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .filter-fields, .form-fields {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .filter-field, .form-field {
+    width: 100%;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .eliminar-btn, .editar-btn {
+    width: 100%;
+    margin-top: 5px;
+  }
+}

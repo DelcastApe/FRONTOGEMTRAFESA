@@ -1,0 +1,109 @@
+<br><br>
+<!-- Paso de búsqueda y resultados -->
+<main>
+  <!-- Barra de progreso -->
+  <div class="progress-container">
+    <div class="line"></div>
+    <div class="step" [ngClass]="{'active': currentStep >= 1}">
+      <div class="circle"></div>
+      <div>RUTA Y FECHAS</div>
+    </div>
+    <div class="step" [ngClass]="{'active': currentStep >= 2}">
+      <div class="circle"></div>
+      <div>HORARIOS</div>
+    </div>
+    <div class="step" [ngClass]="{'active': currentStep >= 3}">
+      <div class="circle"></div>
+      <div>ASIENTOS</div>
+    </div>
+    <div class="step" [ngClass]="{'active': currentStep >= 4}">
+      <div class="circle"></div>
+      <div>REGISTRAR PASAJEROS</div>
+    </div>
+    <div class="step" [ngClass]="{'active': currentStep >= 5}">
+      <div class="circle"></div>
+      <div>PAGAR</div>
+    </div>
+  </div>
+
+  <!-- Formulario de búsqueda de rutas -->
+  <div class="form-container">
+    <form (ngSubmit)="buscarItinerarios()">
+      <div class="form-row">
+        <div class="box">
+          <label for="origen"><strong>Lugar de Origen</strong></label>
+          <select id="origen" [(ngModel)]="origenSeleccionado" name="origen" (change)="obtenerDestinoPorOrigen()" required>
+            <option value="">Selecciona un origen</option>
+            <option *ngFor="let orig of origen" [value]="orig">{{ orig }}</option>
+        </select>
+        </div>
+
+        <div class="box">
+          <label for="destino"><strong>Lugar de Destino</strong></label>
+          <select id="destino" [(ngModel)]="destinoSeleccionado" name="destino" required>
+            <option value="">Selecciona un destino</option>
+            <option *ngFor="let dest of destino" [value]="dest">{{ dest }}</option>
+        </select>
+        </div>
+
+        <div class="box">
+          <label for="fecha"><strong>Fecha de Ida</strong></label>
+          <input type="date" id="fecha" [(ngModel)]="fechaViajeISO" name="fecha" required>
+        </div>
+
+        <div class="box">
+          <button type="submit">Buscar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Resultados de horarios (aparecen cuando currentStep es 2 o mayor) -->
+  <div *ngIf="currentStep >= 2" class="result-container">
+    <h3>Elige el itinerario para el viaje de IDA ({{ origenSeleccionado }} a {{ destinoSeleccionado }})</h3>
+    <div *ngIf="itinerarios.length === 0">
+      <p>No se encontraron itinerarios para esta fecha.</p>
+    </div>
+    <div *ngIf="itinerarios.length > 0">
+      <table class="itinerario-table">
+        <thead>
+          <tr>
+            <th>ITINERARIO</th>
+            <th>SERVICIO</th>
+            <th>ASIENTOS</th>
+            <th>ELEGIR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let itinerario of itinerarios">
+            <td>
+              <div>
+                <strong>{{ itinerario.horaSalida }}</strong> <br> 
+                Salida → <br> 
+                <strong>{{ itinerario.horaLlegada }}</strong> <br> 
+                Llegada estimada
+              </div>
+            </td>
+            <td>
+              <div>
+                <strong>{{ itinerario.bus.servicio }}</strong> <br> 
+                <span *ngIf="itinerario.ruta.tieneEscalas">Escalas</span>
+                <span *ngIf="!itinerario.ruta.tieneEscalas">No tiene escalas</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                1° Nivel: {{ itinerario.bus.cantidadAsientosPorPiso['1'] }} Libres - Precio: S/{{ itinerario.preciosPorPiso[0] }} <br>
+                2° Nivel: {{ itinerario.bus.cantidadAsientosPorPiso['2'] }} Libres - Precio: S/{{ itinerario.preciosPorPiso[1] }} <br>
+              </div>
+            </td>
+            <td>
+              <button (click)="elegirItinerario(itinerario)">Elegir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+

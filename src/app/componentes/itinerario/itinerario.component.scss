@@ -1,0 +1,129 @@
+/* Barra de progreso */
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.progress-container .line {
+  position: absolute;
+  top: 9px;
+  left: 10%;
+  right: 10%;
+  height: 4px;
+  background-color: #ccc;
+  z-index: 1;
+}
+
+.progress-container .step {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  width: 20%;
+}
+
+.progress-container .step .circle {
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+}
+
+.progress-container .step.active .circle {
+  background-color: purple; /* Color activo en el paso */
+}
+
+/* Formulario de búsqueda */
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+  text-align: center;
+}
+
+select, input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 12px 20px;
+  background-color: #5d0085; /* Color morado del botón */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #4c006c; /* Un tono más oscuro para hover */
+}
+
+/* Resultados de itinerarios */
+.result-container {
+  margin-top: 30px;
+  max-width: 80%; /* Asegura que no ocupe todo el ancho */
+  margin-left: auto; /* Centra el contenido */
+  margin-right: auto; /* Centra el contenido */
+}
+
+.itinerario-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.itinerario-table th, .itinerario-table td {
+  padding: 15px;
+  text-align: left;
+}
+
+.itinerario-table th {
+  background-color: #5d0085; /* Color morado de la cabecera */
+  color: white;
+  font-weight: bold;
+}
+
+.itinerario-table td {
+  border-bottom: 1px solid #ccc;
+}
+
+.itinerario-table button {
+  padding: 10px 15px;
+  background-color: #5d0085; /* Color morado del botón "Elegir" */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.itinerario-table button:hover {
+  background-color: #4c006c; /* Hover en el botón */
+}
