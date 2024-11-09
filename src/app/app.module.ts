@@ -8,6 +8,8 @@ import { NavComponent } from './componentes/nav/nav.component';
 import { MenubarComponent } from './componentes/menubar/menubar.component';
 import { ItinerarioComponent } from './componentes/itinerario/itinerario.component';
 import { AdminCrearRutaComponent } from './componentes/admin-crear-ruta/admin-crear-ruta.component';
+import { PasswordResetRequestComponent } from './componentes/password-reset-request/password-reset-request.component';
+import { PasswordResetComponent } from './componentes/password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { AdminCrearRutaComponent } from './componentes/admin-crear-ruta/admin-cr
     NavComponent,
     MenubarComponent,
     ItinerarioComponent,
-    AdminCrearRutaComponent
+    AdminCrearRutaComponent,
+    PasswordResetRequestComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,
