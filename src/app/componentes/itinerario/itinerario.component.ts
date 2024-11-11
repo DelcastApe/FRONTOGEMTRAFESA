@@ -8,55 +8,60 @@ import { itinerario } from '../../models/itinerario';
   styleUrls: ['./itinerario.component.scss']
 })
 export class ItinerarioComponent implements OnInit {
-  itinerarios: itinerario[] = []; // Array para guardar los resultados
-  origen: string[] = [];          // Lista de orígenes
-  destino: string[] = [];         // Lista de destinos
-  fechaViajeISO: string = '';     // Formato ISO para la fecha seleccionada
-
-  origenSeleccionado: string = '';  // Para almacenar el origen seleccionado
-  destinoSeleccionado: string = ''; // Para almacenar el destino seleccionado
-  currentStep: number = 1;         // Control de pasos
-  itinerarioElegido: itinerario | null = null; // Almacena el itinerario elegido
+  itinerarios: itinerario[] = [];
+  origen: string[] = [];
+  destino: string[] = [];
+  fechaViajeISO: string = '';
+  origenSeleccionado: string = '';
+  destinoSeleccionado: string = '';
+  currentStep: number = 1;
+  itinerarioElegido: itinerario | null = null;
 
   constructor(private entrafesaService: EntrafesaService) {}
 
   ngOnInit(): void {
     this.obtenerOrigen();
-    this.obtenerDestinoPorOrigen();
   }
 
   obtenerOrigen(): void {
     this.entrafesaService.getOrigen().subscribe(
       (data) => this.origen = data,
-      (error) => console.error('Error al obtener orígenes: ', error)
+      (error) => console.error('Error al obtener orígenes:', error)
     );
   }
 
   obtenerDestinoPorOrigen(): void {
     if (this.origenSeleccionado) {
-        this.entrafesaService.getDestinosPorOrigen(this.origenSeleccionado).subscribe(
-            (data) => this.destino = data,
-            (error) => console.error('Error al obtener destinos: ', error)
-        );
+      this.entrafesaService.getDestinos().subscribe(
+        (data) => this.destino = data,
+        (error) => console.error('Error al obtener destinos:', error)
+      );
     } else {
-        this.destino = []; // Reiniciar si no hay origen seleccionado
+      this.destino = [];
     }
-}
+  }
 
   buscarItinerarios(): void {
     const fechaFormateada = new Date(this.fechaViajeISO).toISOString().split('T')[0];
-
+  
     this.entrafesaService.buscarItinerario(this.origenSeleccionado, this.destinoSeleccionado, fechaFormateada)
       .subscribe(
         (data) => {
           this.itinerarios = data;
+          console.log("Datos recibidos de la API:", this.itinerarios);  // Verifica los datos en la consola
           if (this.itinerarios.length > 0) {
-            this.currentStep = 2;  // Avanza al paso 2 para mostrar los horarios
+            this.currentStep = 2;
+          } else {
+            console.log('No se encontraron itinerarios para la fecha seleccionada.');
           }
         },
-        (error) => console.error('Error al buscar itinerarios: ', error)
+        (error) => console.error('Error al buscar itinerarios:', error)
       );
   }
+  
+  
+  
+  
 
   elegirItinerario(itinerario: itinerario): void {
     this.itinerarioElegido = itinerario;
@@ -64,48 +69,31 @@ export class ItinerarioComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*buscar(): void {
-    if (this.origen && this.destino && this.fechaViaje) {
-      // Llamada al servicio para buscar itinerarios
-      this.entrafesaService
-        .buscarItinerario(this.origen, this.destino, this.fechaViaje)
-        .subscribe(
-          (data: itinerario[]) => {
-            this.itinerarios = data; // Asignar los datos al array
-          },
-          (error) => {
-            console.error('Error al buscar itinerarios:', error); // Manejo de errores
-          }
-        );
-    } else {
-      console.warn('Todos los campos del formulario son obligatorios.');
+// Función para obtener el precio según el nivel
+getPrecioPorNivel(itinerario: itinerario, nivel: number): number {
+  if (itinerario.precioPorPiso && itinerario.precioPorPiso.length > 0) {
+    const precio = itinerario.precioPorPiso.find((p: { piso: number, precio: number }) => p.piso === nivel);
+    if (precio) {
+      console.log(`Precio encontrado para el nivel ${nivel}: S/${precio.precio}`); // Verifica si el precio se encuentra correctamente
+      return precio.precio;
     }
-  }*/
+  }
+  console.log(`No se encontró precio para el nivel ${nivel}`);  // Depuración si no se encuentra el precio
+  return 0;  // Si no encuentra el precio, devuelve 0
 }
+
+
+
+
+
+
+// Función para obtener los asientos disponibles según el nivel
+getAsientosPorNivel(itinerario: itinerario, nivel: number): number {
+  if (itinerario.cantidadAsientosPorPiso && itinerario.cantidadAsientosPorPiso[nivel] !== undefined) {
+    return itinerario.cantidadAsientosPorPiso[nivel];
+  }
+  return 0;  // Si cantidadAsientosPorPiso es undefined o no tiene el nivel, devolvemos 0
+}
+
+}
+
