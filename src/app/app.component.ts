@@ -8,11 +8,8 @@ import { filter } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title(title: any) {
-    throw new Error('Method not implemented.');
-  }
-
   mostrarNavComponentes = true;
+  currentRoute: string = '';  // Para almacenar la ruta actual
 
   constructor(private router: Router) {}
 
@@ -23,13 +20,22 @@ export class AppComponent implements OnInit {
       )
       .subscribe((event: Event) => {
         const navigationEndEvent = event as NavigationEnd;
+        this.currentRoute = navigationEndEvent.url;  // Actualizamos la ruta actual
+
         const excludedRoutes = ['/adminRoute'];
         const isRequestPasswordReset = navigationEndEvent.url.includes('request-password-reset');
         const isResetPasswordToken = navigationEndEvent.url.includes('reset-password/');
 
+        // Actualiza la visibilidad de los componentes de navegación
         this.mostrarNavComponentes = !excludedRoutes.some(route => navigationEndEvent.url.includes(route)) 
           && !isRequestPasswordReset
-          && !isResetPasswordToken;
+          && !isResetPasswordToken
+          && !this.isLoginOrRegister();  // Verifica si es login o register
       });
+  }
+
+  // Función para verificar si la ruta es login o register
+  isLoginOrRegister(): boolean {
+    return this.currentRoute === '/login' || this.currentRoute === '/register';
   }
 }

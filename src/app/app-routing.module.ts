@@ -4,8 +4,23 @@ import { NavComponent } from './componentes/nav/nav.component';
 import { AdminCrearRutaComponent } from './componentes/admin-crear-ruta/admin-crear-ruta.component';
 import { PasswordResetRequestComponent } from './componentes/password-reset-request/password-reset-request.component';
 import { PasswordResetComponent } from './componentes/password-reset/password-reset.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { RegisterComponent } from './componentes/register/register.component';
 
 const routes: Routes = [
+
+  //Ruta para el componente de Login
+  { 
+    path: 'login',
+    component: LoginComponent
+  },
+
+  //Ruta para registrar
+  {
+    path:'register',
+    component: RegisterComponent
+  },
+
   // Ruta para el componente de navegación
   {
     path: 'nav',

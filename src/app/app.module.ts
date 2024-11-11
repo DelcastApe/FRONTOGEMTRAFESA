@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';  // <-- IMPORTA HttpClientModule AQUÍ
 import { NavComponent } from './componentes/nav/nav.component';
 import { MenubarComponent } from './componentes/menubar/menubar.component';
@@ -25,6 +25,7 @@ import { PasswordResetComponent } from './componentes/password-reset/password-re
     BrowserModule,
     AppRoutingModule,
     FormsModule, 
+    ReactiveFormsModule,
     HttpClientModule // <-- Agrega el HttpClientModule aquí
   ],
   bootstrap: [AppComponent]

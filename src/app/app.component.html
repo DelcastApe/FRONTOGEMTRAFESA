@@ -1,6 +1,9 @@
-<app-nav></app-nav>
-<app-menubar></app-menubar>
-<div *ngIf="mostrarNavComponentes"> <!--CONDICIÓN PARA EL MUESTREO DE /ADMINROUTE SIN CONTAR LOS DEMÁS COMPONENTES-->
-    <app-itinerario></app-itinerario>
+<app-nav *ngIf="!isLoginOrRegister()"></app-nav>
+<app-menubar *ngIf="!isLoginOrRegister()"></app-menubar>
+
+<div *ngIf="mostrarNavComponentes && !isLoginOrRegister()">
+  <app-itinerario></app-itinerario>
 </div>
+
+<!-- Aquí se cargarán los componentes según la ruta activa -->
 <router-outlet></router-outlet>
