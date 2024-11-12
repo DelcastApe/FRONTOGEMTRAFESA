@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { ItinerarioComponent } from './componentes/itinerario/itinerario.compone
 import { AdminCrearRutaComponent } from './componentes/admin-crear-ruta/admin-crear-ruta.component';
 import { PasswordResetRequestComponent } from './componentes/password-reset-request/password-reset-request.component';
 import { PasswordResetComponent } from './componentes/password-reset/password-reset.component';
+import { LoginComponent } from './componentes/login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +21,14 @@ import { PasswordResetComponent } from './componentes/password-reset/password-re
     ItinerarioComponent,
     AdminCrearRutaComponent,
     PasswordResetRequestComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, 
+    CommonModule,
     ReactiveFormsModule,
     HttpClientModule // <-- Agrega el HttpClientModule aquí
   ],
