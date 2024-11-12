@@ -12,6 +12,7 @@ import { AdminCrearRutaComponent } from './componentes/admin-crear-ruta/admin-cr
 import { PasswordResetRequestComponent } from './componentes/password-reset-request/password-reset-request.component';
 import { PasswordResetComponent } from './componentes/password-reset/password-reset.component';
 import { LoginComponent } from './componentes/login/login.component';
+import { RegisterComponent } from './componentes/register/register.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LoginComponent } from './componentes/login/login.component';
     MenubarComponent,
     ItinerarioComponent,
     AdminCrearRutaComponent,
+    RegisterComponent,
     PasswordResetRequestComponent,
     PasswordResetComponent,
     LoginComponent
