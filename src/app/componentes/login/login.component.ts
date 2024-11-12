@@ -1,36 +1,63 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService, LoginDTO } from '../../services/AuthService.service'; // Tu servicio de autenticación
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/AuthService.service'; // Tu servicio de autenticación
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
-    // Inicialización del formulario con validaciones
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],   // Valida el correo electrónico
-      password: ['', [Validators.required, Validators.minLength(6)]]  // Valida la contraseña
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
   }
 
-  ngOnInit(): void {}
-
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const formData = this.loginForm.value;  // Obtiene los datos del formulario
-      this.authService.login(formData).subscribe({
+      const credentials: LoginDTO = this.loginForm.value;
+      this.authService.login(credentials).subscribe({
         next: (response) => {
-          // Lógica después de una autenticación exitosa
-          console.log('Login exitoso', response);
+          // Guardar el token u otros datos en el almacenamiento local, según sea necesario
+          localStorage.setItem('authToken', response.token);
+          
+          // Alerta de éxito
+          Swal.fire({
+            icon: 'success',
+            title: 'Inicio de sesión exitoso',
+            text: '¡Bienvenido de nuevo!',
+            confirmButtonText: 'Continuar'
+          }).then(() => {
+            this.router.navigate(['/dashboard']); // Redirigir después de la alerta
+          });
         },
-        error: (error) => {
-          console.error('Error en login', error);
+        error: () => {
+          // Alerta de error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al iniciar sesión',
+            text: 'Verifica tus credenciales e intenta nuevamente',
+            confirmButtonText: 'Reintentar'
+          });
         }
+      });
+    } else {
+      // Alerta de campos requeridos
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos requeridos',
+        text: 'Por favor, completa todos los campos del formulario.',
+        confirmButtonText: 'Entendido'
       });
     }
   }

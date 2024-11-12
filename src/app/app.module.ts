@@ -28,6 +28,7 @@ import { PasswordResetComponent } from './componentes/password-reset/password-re
     ReactiveFormsModule,
     HttpClientModule // <-- Agrega el HttpClientModule aquí
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
